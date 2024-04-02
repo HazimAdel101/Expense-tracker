@@ -3,7 +3,7 @@
   <div class="container">
     <Balance :total="total" />
     <IncomeExpense :income="+income" :expense="+expense" />
-    <TransactionList :transactions="transactions" />
+    <TransactionList :transactions="transactions" @delete-transaction="deleteTransaction" />
     <AddTransaction @add-transaction="insert" />
   </div>
 </template>
@@ -57,6 +57,14 @@ const insert = (newTransaction) => {
   })
 
   toast.success('Transaction added successfully', {
+    timeout: 2000
+  })
+}
+
+const deleteTransaction = (id) => {
+  transactions.value = transactions.value.filter(transaction => transaction.id !== id)
+
+  toast.success('Transaction deleted successfully', {
     timeout: 2000
   })
 }
